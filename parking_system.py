@@ -7,7 +7,7 @@ from ultralytics import YOLO
 model = YOLO('yolov8n.pt') 
 
 # 2. Definisikan Titik Slot Parkir (Gunakan hasil dari Langkah 2)
-# Contoh ini ada 2 slot parkir. Format: NumPy array dari 4 titik.
+# Area parkir 1
 parkir1_1 = [(38, 162), (66, 205), (129, 207), (87, 160)]
 parkir1_2 = [(129, 207), (87, 160), (139, 158), (183, 207)]
 parkir1_3 = [(139, 158), (183, 207), (233, 205), (192, 161)]
@@ -26,7 +26,7 @@ parkir1_15 = [(779, 161), (816, 202), (872, 206), (826, 161)]
 parkir1_16 = [(872, 206), (826, 161), (879, 162), (924, 206)]
 parkir1_17 = [(879, 162), (924, 206), (972, 206), (926, 156)]
 parkir1_18 = [(972, 206), (926, 156), (985, 159), (1014, 194)]
-#[(1017, 191), (988, 163)] 
+# Area parkir 2
 parkir2_1 = [(18, 310), (82, 377), (126, 374), (65, 312)]
 parkir2_2 = [(126, 374), (65, 312), (108, 312), (172, 368)]
 parkir2_3 = [(108, 312), (172, 368), (222, 368), (158, 313)]
@@ -125,25 +125,22 @@ while True:
 
         # Kumpulkan titik-titik yang akan diuji:
         test_points = [
-            (cx, cy), # Titik Tengah (Center)
-            (cx, y1 + quarter_offset), # Titik 1/4 dari atas (Near the top of the car)
-            (cx, y2 - quarter_offset)  # Titik 1/4 dari bawah (Near the bottom of the car)
+            (cx, cy), 
+            (cx, y1 + quarter_offset), 
+            (cx, y2 - quarter_offset) 
         ]
 
         if d in target_classes:
-            # Cek apakah titik tengah mobil ada di dalam area parkir
             for slot in parking_slots:
-                # cv2.pointPolygonTest mengembalikan > 0 jika titik di dalam area
                 result = cv2.pointPolygonTest(slot["points"], (cx, cy), False)
                 if result >= 0:
                     slot["status"] = "Occupied"
-                    # Gambar titik tengah mobil untuk debug
                     cv2.circle(frame, (cx, cy), 4, (0, 0, 255), -1)
-                    break # Mobil ini sudah ketemu slotnya, lanjut ke mobil berikutnya
+                    break
 
     # --- Visualisasi ---
     for slot in parking_slots:
-        color = (0, 255, 0) if slot["status"] == "Free" else (0, 0, 255) # Hijau vs Merah
+        color = (0, 255, 0) if slot["status"] == "Free" else (0, 0, 255) 
         label = "Empty" if slot["status"] == "Free" else "Occupied"
         
         # Gambar kotak slot parkir
