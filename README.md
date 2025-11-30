@@ -1,5 +1,3 @@
-# YOLOV8_Parking_Management
-
 # YOLOV8 Parking Management
 ### Versi Modifikasi [Masukkan Nama Versi Anda, cth: TGRafi-v1.0]
 
