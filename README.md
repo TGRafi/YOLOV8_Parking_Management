@@ -38,8 +38,3 @@ Proyek ini didasarkan pada dan merupakan *fork* dari repositori aslinya:
 | **Dimodifikasi Oleh** | [Griska Rafi/TGRafi] |
 
 ---
-
-
-## 🤝 Kontribusi
-
-[Tambahkan bagian tentang bagaimana orang lain dapat berkontribusi atau melaporkan *bug* di sini.]
