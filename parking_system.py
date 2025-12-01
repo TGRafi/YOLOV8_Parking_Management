@@ -99,7 +99,7 @@ while True:
     frame = cv2.resize(frame, (1020, 500))
 
     # Deteksi Object dengan YOLO
-    results = model.predict(frame, conf=0.03, verbose=False) # conf=threshold confidence
+    results = model.predict(frame, conf=0.25, verbose=False) # conf=threshold confidence
     a = results[0].boxes.data
     px = pd.DataFrame(a).astype("float")
     
@@ -132,10 +132,16 @@ while True:
 
         if d in target_classes:
             for slot in parking_slots:
-                result = cv2.pointPolygonTest(slot["points"], (cx, cy), False)
-                if result >= 0:
+                is_occupied = False
+                for point in test_points:
+                    result = cv2.pointPolygonTest(slot["points"], (cx, cy), False)
+                    if result >= 0:
+                        is_occupied = True
+                        cv2.circle(frame, (cx, cy), 4, (0, 0, 255), -1)
+                        break
+
+                if is_occupied:
                     slot["status"] = "Occupied"
-                    cv2.circle(frame, (cx, cy), 4, (0, 0, 255), -1)
                     break
 
     # --- Visualisasi ---
