@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # Ganti dengan nama video Anda
-video_path = 'D:/UNESA/Proyek_Code/Yolov8 Parking/YOLOV8-OBJECT-TRACKING/Parking.mp4' 
+video_path = 'Parking.mp4' 
 cap = cv2.VideoCapture(video_path)
 
 if not cap.isOpened():
@@ -26,7 +26,7 @@ while True:
         break
     
     # Resize frame jika terlalu besar (opsional)
-    frame = cv2.resize(frame, (1020, 500))
+    frame = cv2.resize(frame, (1280, 720))
 
     for point in points:
         cv2.circle(frame, (point[0], point[1]), 5, (0, 0, 255), -1)
